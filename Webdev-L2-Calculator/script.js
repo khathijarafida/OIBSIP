@@ -1,468 +1,136 @@
 const display = document.getElementById("display");
+const numbers = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator");
 
-const numberButtons = document.querySelectorAll(".number");
-const operatorButtons = document.querySelectorAll(".operator");
+let first = "";
+let second = "";
+let operator = "";
+let result = false;
 
-const decimalButton = document.getElementById("decimal");
-const equalsButton = document.getElementById("equals");
-const clearButton = document.getElementById("clear");
-const backspaceButton = document.getElementById("backspace");
+numbers.forEach(button => {
+    button.addEventListener("click", () => {
 
-let firstNumber = "";
-let secondNumber = "";
-let currentOperator = "";
-let resultDisplayed = false;
+        if (display.value === "Error") clear();
 
-
-// =========================
-// NUMBER BUTTONS
-// =========================
-
-numberButtons.forEach(function(button) {
-
-    button.addEventListener("click", function() {
-
-        // If Error is displayed, start again
-        if (display.value === "Error") {
-            clearCalculator();
+        if (result) {
+            first = "";
+            operator = "";
+            result = false;
         }
 
-        // Start a new calculation after =
-        if (resultDisplayed) {
-
-            display.value = button.textContent;
-
-            firstNumber = button.textContent;
-            secondNumber = "";
-            currentOperator = "";
-
-            resultDisplayed = false;
-
-            return;
+        if (operator) {
+            second += button.textContent;
+            display.value = first + " " + operator + " " + second;
+        } else {
+            first += button.textContent;
+            display.value = first;
         }
-
-
-        // Enter second number
-        if (currentOperator !== "") {
-
-            if (secondNumber === "") {
-                secondNumber = button.textContent;
-            }
-            else {
-                secondNumber += button.textContent;
-            }
-
-            display.value =
-                firstNumber + " " +
-                getOperatorSymbol(currentOperator) + " " +
-                secondNumber;
-
-        }
-
-
-        // Enter first number
-        else {
-
-            if (firstNumber === "" || firstNumber === "0") {
-                firstNumber = button.textContent;
-            }
-            else {
-                firstNumber += button.textContent;
-            }
-
-            display.value = firstNumber;
-        }
-
     });
-
 });
 
+operators.forEach(button => {
+    button.addEventListener("click", () => {
 
-// =========================
-// OPERATOR BUTTONS
-// =========================
+        if (display.value === "Error" || first === "") return;
 
-operatorButtons.forEach(function(button) {
+        let op = button.dataset.operator;
 
-    button.addEventListener("click", function() {
-
-        // Do nothing if Error is already displayed
-        if (display.value === "Error") {
-            return;
-        }
-
-        const operator = button.dataset.operator;
-
-
-        // If no number has been entered
-        if (firstNumber === "") {
-            return;
-        }
-
-
-        // If operator is pressed again
-        // Example: 5 + +
-        // Show Error
-        if (currentOperator !== "" && secondNumber === "") {
-
+        if (operator && second === "") {
             display.value = "Error";
-
-            firstNumber = "";
-            secondNumber = "";
-            currentOperator = "";
-
-            resultDisplayed = true;
-
+            first = "";
+            operator = "";
+            result = true;
             return;
         }
 
-
-        // Sequential calculation
-        // Example: 5 + 9 + 2
-        if (currentOperator !== "" && secondNumber !== "") {
-
-            const answer = calculate(
-                parseFloat(firstNumber),
-                parseFloat(secondNumber),
-                currentOperator
-            );
-
-
-            // If calculation gives Error
-            if (answer === "Error") {
-
-                display.value = "Error";
-
-                firstNumber = "";
-                secondNumber = "";
-                currentOperator = "";
-
-                resultDisplayed = true;
-
-                return;
-            }
-
-
-            firstNumber = answer.toString();
-            secondNumber = "";
+        if (operator && second) {
+            first = calculate();
+            second = "";
         }
 
-
-        // Store new operator
-        currentOperator = operator;
-
-
-        // Display operator
-        display.value =
-            firstNumber + " " +
-            getOperatorSymbol(currentOperator);
-
+        operator = op;
+        display.value = first + " " + op;
     });
-
 });
 
+document.getElementById("decimal").addEventListener("click", () => {
 
-// =========================
-// DECIMAL BUTTON
-// =========================
+    if (display.value === "Error") clear();
 
-decimalButton.addEventListener("click", function() {
-
-    // If Error is displayed
-    if (display.value === "Error") {
-        clearCalculator();
-        return;
+    if (operator) {
+        if (!second.includes(".")) {
+            second = second || "0";
+            second += ".";
+        }
+        display.value = first + " " + operator + " " + second;
+    } else {
+        if (!first.includes(".")) {
+            first = first || "0";
+            first += ".";
+        }
+        display.value = first;
     }
-
-
-    // Decimal for second number
-    if (currentOperator !== "") {
-
-        if (secondNumber === "") {
-
-            secondNumber = "0.";
-
-        }
-        else if (!secondNumber.includes(".")) {
-
-            secondNumber += ".";
-
-        }
-
-
-        display.value =
-            firstNumber + " " +
-            getOperatorSymbol(currentOperator) + " " +
-            secondNumber;
-
-        return;
-    }
-
-
-    // Decimal for first number
-    if (!firstNumber.includes(".")) {
-
-        if (firstNumber === "") {
-
-            firstNumber = "0.";
-
-        }
-        else {
-
-            firstNumber += ".";
-
-        }
-
-
-        display.value = firstNumber;
-    }
-
 });
 
+document.getElementById("equals").addEventListener("click", () => {
 
-// =========================
-// EQUALS BUTTON
-// =========================
-
-equalsButton.addEventListener("click", function() {
-
-    // Check for incomplete calculation
-    if (
-        firstNumber === "" ||
-        currentOperator === "" ||
-        secondNumber === ""
-    ) {
+    if (!first || !operator || !second) {
         display.value = "Error";
-
-        firstNumber = "";
-        secondNumber = "";
-        currentOperator = "";
-
-        resultDisplayed = true;
-
         return;
     }
 
+    first = calculate();
+    display.value = first;
 
-    const answer = calculate(
-        parseFloat(firstNumber),
-        parseFloat(secondNumber),
-        currentOperator
-    );
-
-
-    // If calculation gives Error
-    if (answer === "Error") {
-
-        display.value = "Error";
-
-        firstNumber = "";
-        secondNumber = "";
-        currentOperator = "";
-
-        resultDisplayed = true;
-
-        return;
-    }
-
-
-    // Show answer
-    display.value = answer;
-
-
-    firstNumber = answer.toString();
-    secondNumber = "";
-    currentOperator = "";
-
-    resultDisplayed = true;
-
+    second = "";
+    operator = "";
+    result = true;
 });
 
+document.getElementById("clear").addEventListener("click", clear);
 
-// =========================
-// BACKSPACE
-// =========================
+document.getElementById("backspace").addEventListener("click", () => {
 
-backspaceButton.addEventListener("click", function() {
-
-    // If Error is displayed
     if (display.value === "Error") {
-
-        clearCalculator();
-
+        clear();
         return;
     }
 
-
-    // Remove second number
-    if (currentOperator !== "" && secondNumber !== "") {
-
-        secondNumber = secondNumber.slice(0, -1);
-
-
-        if (secondNumber === "") {
-
-            display.value =
-                firstNumber + " " +
-                getOperatorSymbol(currentOperator);
-
-        }
-        else {
-
-            display.value =
-                firstNumber + " " +
-                getOperatorSymbol(currentOperator) +
-                " " +
-                secondNumber;
-
-        }
-
-        return;
+    if (second) {
+        second = second.slice(0, -1);
+        display.value = first + " " + operator + " " + second;
+    } else if (operator) {
+        operator = "";
+        display.value = first;
+    } else {
+        first = first.slice(0, -1);
+        display.value = first || "0";
     }
-
-
-    // Remove operator
-    if (currentOperator !== "" && secondNumber === "") {
-
-        currentOperator = "";
-
-        display.value = firstNumber;
-
-        return;
-    }
-
-
-    // Remove first number
-    firstNumber = firstNumber.slice(0, -1);
-
-
-    if (firstNumber === "") {
-
-        display.value = "0";
-
-    }
-    else {
-
-        display.value = firstNumber;
-
-    }
-
 });
 
+function calculate() {
 
-// =========================
-// CLEAR BUTTON
-// =========================
+    let a = Number(first);
+    let b = Number(second);
 
-clearButton.addEventListener("click", function() {
+    if (operator === "+") return a + b;
+    if (operator === "-") return a - b;
+    if (operator === "*") return a * b;
 
-    clearCalculator();
-
-});
-
-
-// =========================
-// CALCULATE
-// =========================
-
-function calculate(number1, number2, operator) {
-
-    if (operator === "+") {
-
-        return number1 + number2;
-
-    }
-
-
-    if (operator === "-") {
-
-        return number1 - number2;
-
-    }
-
-
-    if (operator === "*") {
-
-        return number1 * number2;
-
-    }
-
-
-    if (operator === "/") {
-
-        if (number2 === 0) {
-
+    if (operator === "/" || operator === "%") {
+        if (b === 0) {
+            display.value = "Error";
             return "Error";
-
         }
 
-        return number1 / number2;
-
+        return operator === "/" ? a / b : a % b;
     }
-
-
-    if (operator === "%") {
-
-        if (number2 === 0) {
-
-            return "Error";
-
-        }
-
-        return number1 % number2;
-
-    }
-
-
-    return "Error";
 }
 
-
-// =========================
-// DISPLAY OPERATOR SYMBOL
-// =========================
-
-function getOperatorSymbol(operator) {
-
-    if (operator === "+") {
-        return "+";
-    }
-
-
-    if (operator === "-") {
-        return "−";
-    }
-
-
-    if (operator === "*") {
-        return "×";
-    }
-
-
-    if (operator === "/") {
-        return "÷";
-    }
-
-
-    if (operator === "%") {
-        return "%";
-    }
-
-}
-
-
-// =========================
-// CLEAR FUNCTION
-// =========================
-
-function clearCalculator() {
-
+function clear() {
     display.value = "0";
-
-    firstNumber = "";
-    secondNumber = "";
-    currentOperator = "";
-
-    resultDisplayed = false;
-
+    first = "";
+    second = "";
+    operator = "";
+    result = false;
 }
