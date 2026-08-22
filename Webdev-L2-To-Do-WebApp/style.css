@@ -26,8 +26,10 @@ header h1 {
     margin-bottom: 8px;
 }
 
+
 header p {
-    color: gray;
+    color: maroon;
+
 }
 
 .add-task {
