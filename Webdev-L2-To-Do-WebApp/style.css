@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: lavender;
+    background: mistyrose;
     min-height: 100vh;
     padding: 30px;
 }
@@ -22,12 +22,12 @@ header {
 }
 
 header h1 {
-    color: navy;
+    color: maroon;
     margin-bottom: 8px;
 }
 
 header p {
-    color: dimgray;
+    color: gray;
 }
 
 .add-task {
@@ -39,23 +39,24 @@ header p {
 #taskInput {
     flex: 1;
     padding: 14px;
-    border: 2px solid lightgray;
+    border: 2px solid wheat;
     border-radius: 8px;
     font-size: 16px;
+    background: ivory;
 }
 
 #addButton {
     padding: 14px 22px;
     border: none;
     border-radius: 8px;
-    background: navy;
+    background: coral;
     color: white;
     cursor: pointer;
     font-size: 16px;
 }
 
 #addButton:hover {
-    background: midnightblue;
+    background: tomato;
 }
 
 main {
@@ -65,10 +66,10 @@ main {
 }
 
 .task-section {
-    background: white;
+    background: ivory;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 3px 10px lightgray;
+    box-shadow: 0 3px 10px silver;
     min-height: 250px;
 }
 
@@ -80,23 +81,24 @@ main {
 }
 
 .section-title h2 {
-    color: navy;
+    color: maroon;
     font-size: 20px;
 }
 
 .section-title span {
-    background: lavender;
-    color: navy;
+    background: wheat;
+    color: maroon;
     padding: 6px 10px;
     border-radius: 15px;
     font-size: 13px;
 }
 
 .task {
-    border: 1px solid lightgray;
+    border: 1px solid wheat;
     border-radius: 8px;
     padding: 14px;
     margin-bottom: 12px;
+    background: white;
 }
 
 .task-text {
@@ -129,7 +131,7 @@ main {
 }
 
 .edit {
-    background: lightblue;
+    background: khaki;
 }
 
 .complete {
@@ -142,12 +144,16 @@ main {
 
 .save {
     background: lightgreen;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 .edit-input {
     width: 100%;
     padding: 8px;
-    border: 1px solid gray;
+    border: 1px solid wheat;
     border-radius: 6px;
     margin-bottom: 10px;
 }
