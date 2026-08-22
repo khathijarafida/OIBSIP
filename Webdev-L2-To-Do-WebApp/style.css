@@ -1,0 +1,173 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: lavender;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: navy;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: dimgray;
+}
+
+.add-task {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#taskInput {
+    flex: 1;
+    padding: 14px;
+    border: 2px solid lightgray;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+#addButton {
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
+    background: navy;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#addButton:hover {
+    background: midnightblue;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.task-section {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px lightgray;
+    min-height: 250px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title h2 {
+    color: navy;
+    font-size: 20px;
+}
+
+.section-title span {
+    background: lavender;
+    color: navy;
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+.task {
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.task-text {
+    font-size: 16px;
+    color: black;
+    margin-bottom: 8px;
+}
+
+.completed .task-text {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.time {
+    font-size: 12px;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.buttons button {
+    border: none;
+    padding: 7px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.edit {
+    background: lightblue;
+}
+
+.complete {
+    background: lightgreen;
+}
+
+.delete {
+    background: lightcoral;
+}
+
+.save {
+    background: lightgreen;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid gray;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.empty {
+    text-align: center;
+    color: gray;
+    padding: 40px 10px;
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 15px;
+    }
+
+    .add-task {
+        flex-direction: column;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+    }
+}

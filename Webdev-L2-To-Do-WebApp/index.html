@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>📚 Study Planner</h1>
+            <p>Organize your study. Achieve your goals.</p>
+        </header>
+
+        <section class="add-task">
+            <input type="text" id="taskInput" placeholder="Enter your study task...">
+            <button id="addButton">Add Task</button>
+        </section>
+
+        <main>
+
+            <section class="task-section">
+                <div class="section-title">
+                    <h2>📌 Pending Tasks</h2>
+                    <span id="pendingCount">0 pending</span>
+                </div>
+
+                <div id="pendingList">
+                    <p class="empty">🎉 No pending tasks!</p>
+                </div>
+            </section>
+
+            <section class="task-section">
+                <div class="section-title">
+                    <h2>✅ Completed Tasks</h2>
+                    <span id="completedCount">0 completed</span>
+                </div>
+
+                <div id="completedList">
+                    <p class="empty">📖 No completed tasks yet.</p>
+                </div>
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
