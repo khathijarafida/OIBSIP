@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: lavender;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-container,
+.dashboard-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-card,
+.dashboard-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px gray;
+}
+
+.auth-card h1,
+.dashboard-card h1 {
+    text-align: center;
+    color: darkblue;
+    margin-bottom: 10px;
+}
+
+.auth-card > p,
+.dashboard-card > p {
+    text-align: center;
+    color: gray;
+    margin-bottom: 25px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 7px;
+    color: darkblue;
+    font-weight: bold;
+}
+
+input {
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    border-color: mediumslateblue;
+}
+
+.password-info {
+    font-size: 13px;
+    color: gray;
+    margin-top: -10px;
+    margin-bottom: 18px;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: mediumslateblue;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: darkblue;
+}
+
+#errorMessage {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.account-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.account-link a {
+    color: mediumslateblue;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.account-link a:hover {
+    text-decoration: underline;
+}
+
+.dashboard-card {
+    text-align: center;
+}
+
+.dashboard-card p {
+    margin-bottom: 20px;
+}
+
+.dashboard-card button {
+    width: 100%;
+    background: crimson;
+}
+
+.dashboard-card button:hover {
+    background: darkred;
+}
+
+@media (max-width: 500px) {
+    .auth-card,
+    .dashboard-card {
+        padding: 25px;
+    }
+}
